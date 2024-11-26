@@ -1,7 +1,7 @@
 import './App.css';
-import {Todolist} from "./Todolist";
-import {useState} from "react";
-import {v1} from "uuid";
+import { Todolist } from "./Todolist";
+import { useState } from "react";
+import { v1 } from "uuid";
 
 export type TaskType = {
     id: string
@@ -13,12 +13,12 @@ export type FilterValuesType = 'all' | 'active' | 'completed'
 
 function App() {
     const [tasks, setTasks] = useState<TaskType[]>([
-        {id: v1(), title: 'HTML&CSS', isDone: true},
-        {id: v1(), title: 'JS', isDone: true},
-        {id: v1(), title: 'ReactJS', isDone: false},
-        {id: v1(), title: 'Redux', isDone: false},
-        {id: v1(), title: 'Typescript', isDone: false},
-        {id: v1(), title: 'RTK query', isDone: false},
+        { id: v1(), title: 'HTML&CSS', isDone: true },
+        { id: v1(), title: 'JS', isDone: true },
+        { id: v1(), title: 'ReactJS', isDone: false },
+        { id: v1(), title: 'Redux', isDone: false },
+        { id: v1(), title: 'Typescript', isDone: false },
+        { id: v1(), title: 'RTK query', isDone: false },
     ])
 
 
@@ -37,10 +37,18 @@ function App() {
 
 
 
-	const addTask=(newTitle:string)=>{
-		const newTask:TaskType= {id: v1(), title: newTitle, isDone: true}
-         setTasks([newTask, ...tasks ])
-	}
+    const addTask = (newTitle: string) => {
+        const newTask: TaskType = { id: v1(), title: newTitle, isDone: true }
+        setTasks([newTask, ...tasks])
+    }
+
+    const changeStstus = (taskId: string, isDone: boolean) => {
+        let task = tasks.find(t => t.id === taskId)
+        if (task) {
+            task.isDone = isDone
+        }
+        setTasks([...tasks])
+    }
 
     let tasksForTodolist = tasks
     if (filter === 'active') {
@@ -58,9 +66,11 @@ function App() {
                 tasks={tasksForTodolist}
                 removeTask={removeTask}
                 changeFilter={changeFilter}
-				addTask={addTask}
+                addTask={addTask}
+                changeTaskStstus={changeStstus}
+                filter={filter}
 
-			/>
+            />
         </div>
     );
 }
