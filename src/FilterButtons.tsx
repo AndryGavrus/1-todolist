@@ -1,15 +1,18 @@
 import React from 'react'
 import { Button } from './Button'
+import { FilterValuesType } from './App'
 
 type FilterButtonsPropsType = {
+    changeTodolistFilter: (nextFilter: FilterValuesType) => void
+
 }
 
-export const FilterButtons = ({ }: FilterButtonsPropsType) => {
+export const FilterButtons = ({changeTodolistFilter }: FilterButtonsPropsType) => {
     return (
         <div>
-            <Button title='All' />
-            <Button title='Active' />
-            <Button title='Completed' />
+            <Button title='All' onClickHandler={()=>changeTodolistFilter('all')} />
+            <Button title='Active' onClickHandler={()=>changeTodolistFilter('active')} />
+            <Button title='Completed' onClickHandler={()=>changeTodolistFilter('completed')} />
         </div>
     )
 }

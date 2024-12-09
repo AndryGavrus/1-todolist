@@ -1,5 +1,5 @@
 import React from 'react'
-import { TaskType } from './App'
+import { FilterValuesType, TaskType } from './App'
 import { JsxElement } from 'typescript'
 import { Button } from './Button'
 import { TodolistHeader } from './TodolistHeader'
@@ -9,9 +9,11 @@ import { FilterButtons } from './FilterButtons'
 type TodolistPropsType = {
     title: string
     tasks: Array<TaskType>
+    removeTask: (taskId: string) => void
+    changeTodolistFilter: (nextFilter: FilterValuesType) => void
 }
 
-export const TodoList = ({ title, tasks }: TodolistPropsType) => {
+export const TodoList = ({ title, tasks, removeTask, changeTodolistFilter }: TodolistPropsType) => {
 
     const tasksList = tasks.length === 0
         ? <span>Your todolist is empty</span>
@@ -21,6 +23,7 @@ export const TodoList = ({ title, tasks }: TodolistPropsType) => {
                     <li>
                         <input type="checkbox" checked={t.isDone} />
                         <span>{t.title}</span>
+                        <Button title={'X'} onClickHandler={()=>removeTask(t.id)}/>
                     </li>
                 )
             })}
@@ -31,7 +34,7 @@ export const TodoList = ({ title, tasks }: TodolistPropsType) => {
             <TodolistHeader title={title}/>
             <AddForm/>
             {tasksList}
-            <FilterButtons/>
+            <FilterButtons changeTodolistFilter={changeTodolistFilter}/>
         </div>
     )
 }
