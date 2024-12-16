@@ -8,7 +8,7 @@ export const AddForm = ({  }: AddFormPropsType) => {
     return (
         <div>
             <input />
-            <Button title='+' />
+            <Button title='+'/>
         </div>
     )
 }
